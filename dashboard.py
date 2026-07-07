@@ -85,28 +85,22 @@ else:
     """
 
 st.markdown(bg_css, unsafe_allow_html=True)
-
-# 🚫 100% WORKING CSS NUKE FOR PROFILE AVATAR & CROWN LOGO ONLY
+# 🚫 FINAL TRICK TO REMOVE FLOATING AVATAR AND CROWN LOGO
 hide_st_elements = """
     <style>
-    /* ટોપ-રાઇટ પરથી ગીથબ આઇકોન, પ્રોફાઇલ ફોટો અને કનેક્શન સ્ટેટસ હટાવવા */
+    /* નીચે દેખાતી આખી ફ્લોટિંગ પટ્ટી (ફોટો અને મુગટ બંને) ગાયબ કરવા માટે */
     div[data-testid="stStatusWidget"],
-    .stActionButton,
     div[class*="stActionButton"],
-    div[class*="viewerBadge"] {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-    }
-    
-    /* બોટમ-રાઇટ પરથી લાલ મુગટ (Streamlit Crown Logo) અને ફૂટર હટાવવા */
     footer,
     .stDeployButton,
-    [data-testid="stDecoration"],
     div[data-testid="stDecoration"] {
         display: none !important;
         visibility: hidden !important;
-        opacity: 0 !important;
+    }
+    
+    /* સાઇડમાંથી પણ કોઈ એલિમેન્ટ પોપઅપ ન થાય એના માટે */
+    div[class*="viewerBadge"] {
+        display: none !important;
     }
     </style>
 """
@@ -145,6 +139,14 @@ if not st.session_state.logged_in:
         if os.path.exists(logo_path):
             logo_base64 = get_base64_of_bin_file(logo_path)
             logo_html = f"<img src='data:image/jpeg;base64,{logo_base64}' width='100%' style='max-width:130px; margin-bottom:15px; border-radius:10px; filter: drop-shadow(0px 4px 12px rgba(0,0,0,0.3));'><br>"
+        
+        # st.markdown(f"""
+        #     <div style='background: linear-gradient(135deg, #1e1b4b 0%, #431407 100%); padding: 35px; border-radius: 15px; border: 1px solid #f97316; box-shadow: 0 4px 25px rgba(249, 115, 22, 0.25); text-align: center;'>
+        #         {logo_html}
+        #         <h2 style='color: white; margin: 0; font-family: "Segoe UI", sans-serif; font-size: 26px; font-weight: 600;">ARVNP Control Panel</h2>
+        #         <p style='color: #fdba74; margin-top: 8px; font-size: 14px; margin-bottom: 0;">Please enter your administrative credentials</p>
+        #     </div>
+        # """, unsafe_allow_html=True)
 
         st.markdown(f"""<div style='background: linear-gradient(135deg, #1e1b4b 0%, #431407 100%); padding: 35px; border-radius: 15px; border: 1px solid #f97316; box-shadow: 0 4px 25px rgba(249, 115, 22, 0.25); text-align: center;'>{logo_html}<h2 style='color: white; margin: 0; font-family: "Segoe UI", sans-serif; font-size: 26px; font-weight: 600;'>ARVNP Control Panel</h2><p style='color: #fdba74; margin-top: 8px; font-size: 14px; margin-bottom: 0;'>Please enter your administrative credentials</p></div>""", unsafe_allow_html=True)
         
